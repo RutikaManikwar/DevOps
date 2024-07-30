@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>College Timetable</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+<style>
+    body { font-family: Arial, sans-serif; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    th { background-color: #f2f2f2; }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-4 text-center">College Timetable</h1>
+    <div id="inputForm" class="mb-4">
+        <h4>Enter Staff Data</h4>
+        <div class="row">
+            <div class="col-md-3">
+                <label for="staffName" class="form-label">Staff Name:</label>
+                <input type="text" class="form-control" id="staffName" placeholder="Enter staff name">
+            </div>
+            <div class="col-md-3">
+                <label for="Subject" class="form-label">Subject:</label>
+                <input type="text" class="form-control" id="Subject" placeholder="Enter subject">
+            </div>
+            <div class="col-md-3">
+                <label for="day" class="form-label">Day:</label>
+                <select id="day" class="form-select">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="class" class="form-label">Class:</label>
+                <select id="class" class="form-select">
+                    <option value="SY">SY</option>
+                    <option value="TY">TY</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label for="timeSlot" class="form-label">Time Slot:</label>
+                <select id="timeSlot" class="form-select">
+                    <option value="09:00 AM - 10:00 AM">09:00 AM - 10:00 AM</option>
+                    <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                    <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM</option>
+                    <option value="01:00 PM - 1:55 PM">01:00 PM - 1:55 PM</option>
+                    <option value="01:55 PM - 2:50 PM">01:55 PM - 2:50 PM</option>
+                    <option value="2:50 PM - 3:10 PM">2:50 PM - 3:10 PM</option>
+                    <option value="3:10 PM - 4:05 PM">3:10 PM - 4:05 PM</option>
+                    <option value="4:05 PM - 5:00 PM">4:05 PM - 5:00 PM</option>
+                </select>
+            </div>
+            <div class="col-md-12 mt-3">
+                <button onclick="addData()" class="btn btn-primary">Add Data</button>
+                <button onclick="downloadPDF('SY')" class="btn btn-success">Download SY PDF</button>
+                <button onclick="downloadPDF('TY')" class="btn btn-success">Download TY PDF</button>
+                <button onclick="downloadPDF('ALL')" class="btn btn-info">Download Full Timetable</button>
+            </div>
+        </div>
+    </div>
+    <table class="table table-bordered" id="timetable">
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Class</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table rows generated in JavaScript -->
+            <tr>
+               <td rowspan="2">09:00 AM - 10:00 AM</td>
+               <td>SY</td>
+               <td data-class="SY" data-day="Monday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+               <td data-class="SY" data-day="Tuesday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+               <td data-class="SY" data-day="Wednesday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+               <td data-class="SY" data-day="Thursday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+               <td data-class="SY" data-day="Friday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+           </tr>
+           <tr>
+               <td>TY</td>
+               <td data-class="TY" data-day="Monday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+               <td data-class="TY" data-day="Tuesday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+               <td data-class="TY" data-day="Wednesday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+               <td data-class="TY" data-day="Thursday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+               <td data-class="TY" data-day="Friday" data-time="09:00 AM - 10:00 AM" contenteditable="true"></td>
+           </tr>
+           <!-- Additional rows as needed for other time slots -->
+            <tr>
+                <td rowspan="2">10:00 AM - 11:00 AM</td>
+                <td>SY</td>
+                <td contenteditable="true" data-class="SY" data-day="Monday" data-time="10:00 AM - 11:00 AM"></td>
+                <td contenteditable="true" data-class="SY" data-day="Tuesday" data-time="10:00 AM - 11:00 AM"></td>
+                <td contenteditable="true" data-class="SY" data-day="Wednesday" data-time="10:00 AM - 11:00 AM"></td>
+                <td contenteditable="true" data-class="SY" data-day="Thursday" data-time="10:00 AM - 11:00 AM"></td>
+                <td contenteditable="true" data-class="SY" data-day="Friday" data-time="10:00 AM - 11:00 AM"></td>
+            </tr>
+            <tr>
+                <td>TY</td>
+                <td contenteditable="true" data-class="TY" data-day="Monday" data-time="10:00 AM - 11:00 AM"></td>
+                <td contenteditable="true" data-class="TY" data-day="Tuesday" data-time="10:00 AM - 11:00 AM"></td>
+                <td contenteditable="true" data-class="TY" data-day="Wednesday" data-time="10:00 AM - 11:00 AM"></td>
+                <td contenteditable="true" data-class="TY" data-day="Thursday" data-time="10:00 AM - 11:00 AM"></td>
+                <td contenteditable="true" data-class="TY" data-day="Friday" data-time="10:00 AM - 11:00 AM"></td>
+            </tr>
+             <tr>
+                <td rowspan="2">11:00 AM - 12:00 PM</td>
+                <td>SY</td>
+                <td contenteditable="true" data-class="SY" data-day="Monday" data-time="11:00 AM - 12:00 PM"></td>
+                <td contenteditable="true" data-class="SY" data-day="Tuesday" data-time="11:00 AM - 12:00 PM"></td>
+                <td contenteditable="true" data-class="SY" data-day="Wednesday" data-time="11:00 AM - 12:00 PM"></td>
+                <td contenteditable="true" data-class="SY" data-day="Thursday" data-time="11:00 AM - 12:00 PM"></td>
+                <td contenteditable="true" data-class="SY" data-day="Friday" data-time="11:00 AM - 12:00 PM"></td>
+            </tr>
+            <tr>
+                <td>TY</td>
+                <td contenteditable="true" data-class="TY" data-day="Monday" data-time="11:00 AM - 12:00 PM"></td>
+                <td contenteditable="true" data-class="TY" data-day="Tuesday" data-time="11:00 AM - 12:00 PM"></td>
+                <td contenteditable="true" data-class="TY" data-day="Wednesday" data-time="11:00 AM - 12:00 PM"></td>
+                <td contenteditable="true" data-class="TY" data-day="Thursday" data-time="11:00 AM - 12:00 PM"></td>
+                <td contenteditable="true" data-class="TY" data-day="Friday" data-time="11:00 AM - 12:00 PM"></td>
+            </tr>
+            <!-- 12:00 PM - 1:00 PM -->
+<tr>
+    <td rowspan="2">12:00 PM - 1:00 PM</td>
+    <td>SY</td>
+    <td contenteditable="true" data-class="SY" data-day="Monday" data-time="12:00 PM - 1:00 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Tuesday" data-time="12:00 PM - 1:00 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Wednesday" data-time="12:00 PM - 1:00 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Thursday" data-time="12:00 PM - 1:00 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Friday" data-time="12:00 PM - 1:00 PM"></td>
+</tr>
+<tr>
+    <td>TY</td>
+    <td contenteditable="true" data-class="TY" data-day="Monday" data-time="12:00 PM - 1:00 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Tuesday" data-time="12:00 PM - 1:00 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Wednesday" data-time="12:00 PM - 1:00 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Thursday" data-time="12:00 PM - 1:00 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Friday" data-time="12:00 PM - 1:00 PM"></td>
+</tr>
+
+
+<tr>
+    <td rowspan="2">01:00 PM - 1:55 PM</td>
+    <td>SY</td>
+    <td contenteditable="true" data-class="SY" data-day="Monday" data-time="01:00 PM - 1:55 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Tuesday" data-time="01:00 PM - 1:55 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Wednesday" data-time="01:00 PM - 1:55 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Thursday" data-time="01:00 PM - 1:55 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Friday" data-time="01:00 PM - 1:55 PM"></td>
+</tr>
+<tr>
+    <td>TY</td>
+    <td contenteditable="true" data-class="TY" data-day="Monday" data-time="01:00 PM - 1:55 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Tuesday" data-time="01:00 PM - 1:55 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Wednesday" data-time="01:00 PM - 1:55 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Thursday" data-time="01:00 PM - 1:55 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Friday" data-time="01:00 PM - 1:55 PM"></td>
+</tr>
+
+
+<tr>
+    <td rowspan="2">01:55 PM - 2:50 PM</td>
+    <td>SY</td>
+    <td contenteditable="true" data-class="SY" data-day="Monday" data-time="01:55 PM - 2:50 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Tuesday" data-time="01:55 PM - 2:50 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Wednesday" data-time="01:55 PM - 2:50 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Thursday" data-time="01:55 PM - 2:50 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Friday" data-time="01:55 PM - 2:50 PM"></td>
+</tr>
+<tr>
+    <td>TY</td>
+    <td contenteditable="true" data-class="TY" data-day="Monday" data-time="01:55 PM - 2:50 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Tuesday" data-time="01:55 PM - 2:50 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Wednesday" data-time="01:55 PM - 2:50 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Thursday" data-time="01:55 PM - 2:50 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Friday" data-time="01:55 PM - 2:50 PM"></td>
+</tr>
+
+<tr>
+    <td rowspan="2">2:50 PM - 3:10 PM</td>
+    <td>SY</td>
+    <td contenteditable="true" data-class="SY" data-day="Monday" data-time="2:50 PM - 3:10 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Tuesday" data-time="2:50 PM - 3:10 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Wednesday" data-time="2:50 PM - 3:10 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Thursday" data-time="2:50 PM - 3:10 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Friday" data-time="2:50 PM - 3:10 PM"></td>
+</tr>
+<tr>
+    <td>TY</td>
+    <td contenteditable="true" data-class="TY" data-day="Monday" data-time="2:50 PM - 3:10 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Tuesday" data-time="2:50 PM - 3:10 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Wednesday" data-time="2:50 PM - 3:10 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Thursday" data-time="2:50 PM - 3:10 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Friday" data-time="2:50 PM - 3:10 PM"></td>
+</tr>
+
+
+<tr>
+    <td rowspan="2">3:10 PM - 4:05 PM</td>
+    <td>SY</td>
+    <td contenteditable="true" data-class="SY" data-day="Monday" data-time="3:10 PM - 4:05 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Tuesday" data-time="3:10 PM - 4:05 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Wednesday" data-time="3:10 PM - 4:05 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Thursday" data-time="3:10 PM - 4:05 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Friday" data-time="3:10 PM - 4:05 PM"></td>
+</tr>
+<tr>
+    <td>TY</td>
+    <td contenteditable="true" data-class="TY" data-day="Monday" data-time="3:10 PM - 4:05 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Tuesday" data-time="3:10 PM - 4:05 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Wednesday" data-time="3:10 PM - 4:05 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Thursday" data-time="3:10 PM - 4:05 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Friday" data-time="3:10 PM - 4:05 PM"></td>
+</tr>
+
+
+<!-- 1:00 PM - 2:00 PM -->
+<tr>
+    <td rowspan="2">4:05 PM - 5:00 PM</td>
+    <td>SY</td>
+    <td contenteditable="true" data-class="SY" data-day="Monday" data-time="4:05 PM - 5:00 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Tuesday" data-time="4:05 PM - 5:00 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Wednesday" data-time="4:05 PM - 5:00 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Thursday" data-time="4:05 PM - 5:00 PM"></td>
+    <td contenteditable="true" data-class="SY" data-day="Friday" data-time="4:05 PM - 5:00 PM"></td>
+</tr>
+<tr>
+    <td>TY</td>
+    <td contenteditable="true" data-class="TY" data-day="Monday" data-time="4:05 PM - 5:00 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Tuesday" data-time="4:05 PM - 5:00 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Wednesday" data-time="4:05 PM - 5:00 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Thursday" data-time="4:05 PM - 5:00 PM"></td>
+    <td contenteditable="true" data-class="TY" data-day="Friday" data-time="4:05 PM - 5:00 PM"></td>
+</tr>
+        </tbody>
+    </table>
+    <div class="mt-4">
+        <h2>Individual Teacher's Timetable</h2>
+        <input type="text" id="teacherName" class="form-control" placeholder="Enter teacher's name" oninput="showTeacherTimetable()">
+        <table class="table table-bordered mt-3" id="teacherTimetable">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Time Slot</th>
+                    <th>Class</th>
+                    <th>Subject</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data filled by showTeacherTimetable() -->
+            </tbody>
+        </table>
+        <button onclick="downloadTeacherPDF()" class="btn btn-primary">Download Teacher's Timetable</button>
+    </div>
+</div>
+
+<script>
+const assignedStaff = {};
+
+function addData() {
+    var staffName = document.getElementById("staffName").value.trim();
+    var subject = document.getElementById("Subject").value.trim();
+    var day = document.getElementById("day").value;
+    var selectedClass = document.getElementById("class").value;
+    var timeSlot = document.getElementById("timeSlot").value;
+
+    if (!staffName || !subject || !day || !selectedClass || !timeSlot) {
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    // Ensure no overlap within the same class and time slot
+    if (assignedStaff[day] && assignedStaff[day][timeSlot] && assignedStaff[day][timeSlot][selectedClass]) {
+        alert("Another staff is already assigned to this class and time slot.");
+        return;
+    }
+
+    // Check if the same staff is assigned to a different class at the same time
+    var otherClass = selectedClass === 'SY' ? 'TY' : 'SY';
+    if (assignedStaff[day] && assignedStaff[day][timeSlot] && assignedStaff[day][timeSlot][otherClass] === staffName) {
+        alert("This staff member is already assigned to the other class at this time slot.");
+        return;
+    }
+
+    if (!assignedStaff[day]) assignedStaff[day] = {};
+    if (!assignedStaff[day][timeSlot]) assignedStaff[day][timeSlot] = {};
+    assignedStaff[day][timeSlot][selectedClass] = staffName;
+
+    var selector = `td[data-class='${selectedClass}'][data-day='${day}'][data-time='${timeSlot}']`;
+    var cell = document.querySelector(selector);
+    if (cell) {
+        cell.innerHTML = `${staffName} (${subject})`;
+    } else {
+        alert('No matching timetable slot found.');
+    }
+
+    document.getElementById("staffName").value = '';
+    document.getElementById("Subject").value = '';
+}
+
+function downloadPDF(classType) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    let tempTable = document.createElement("table");
+    tempTable.innerHTML = document.querySelector("#timetable").outerHTML;
+
+    // Check if the PDF requested is for a specific class (either "SY" or "TY")
+    if (classType === 'SY' || classType === 'TY') {
+        Array.from(tempTable.querySelectorAll("tbody tr")).forEach(row => {
+            const rowClass = row.cells[1].textContent.trim(); // Class is specified in the second cell of each row
+            if (rowClass !== classType) {
+                // Clear the row's cells if the class does not match the requested classType
+                for (let i = 2; i < row.cells.length; i++) { // Start clearing from the third cell onward
+                    row.cells[i].textContent = '';
+                }
+            }
+        });
+    }
+
+    // Configure the PDF settings
+    doc.autoTable({
+        html: tempTable,
+        theme: 'grid',
+        startY: 20,
+        tableWidth: 'auto',
+        styles: {
+            cellPadding: 1,
+            fontSize: 8,
+            cellWidth: 'wrap'
+        },
+        columnStyles: {
+            0: { cellWidth: 30 }, // Set the width of the Time column
+            1: { cellWidth: 20 }, // Set the width of the Class column
+        },
+        headStyles: {
+            fillColor: [220, 220, 220] // Set a light grey background for the header
+        }
+    });
+
+    // Save the generated PDF with a filename that includes the selected class type
+    doc.save(`Timetable_${classType}.pdf`);
+}
+
+function showTeacherTimetable() {
+    const teacherName = document.getElementById('teacherName').value.trim().toLowerCase();
+    const tableBody = document.getElementById('teacherTimetable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = '';
+
+    for (const day in assignedStaff) {
+        for (const timeSlot in assignedStaff[day]) {
+            for (const cls in assignedStaff[day][timeSlot]) {
+                const entry = assignedStaff[day][timeSlot][cls];
+                if (entry.toLowerCase().includes(teacherName)) {
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).textContent = day;
+                    row.insertCell(1).textContent = timeSlot;
+                    row.insertCell(2).textContent = cls;
+                    row.insertCell(3).textContent = entry;
+                }
+            }
+        }
+    }
+}
+
+function downloadTeacherPDF() {
+    const teacherName = document.getElementById('teacherName').value.trim();
+    if (!teacherName) {
+        alert("Please enter the teacher's name to download the timetable.");
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    let selector = "#teacherTimetable";
+    doc.autoTable({ html: selector });
+    doc.save(`Timetable_${teacherName}.pdf`);
+}
+
+</script>
+
+</body>
+</html>
