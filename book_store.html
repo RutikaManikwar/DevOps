@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Management System</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 18px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        input[type="text"], input[type="password"], input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        section {
+            margin-bottom: 20px;
+            display: none;
+        }
+        section.active {
+            display: block;
+        }
+        .book {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .book img {
+            width: 150px; /* Set the width for all images */
+            height: 200px; /* Set the height for all images */
+            margin-right: 20px;
+        }
+        .book-details {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Book Management System</h1>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#catalog">Books Catalog</a>
+    <a href="#login">Login</a>
+    <a href="#register">Register</a>
+</nav>
+
+<div class="container">
+
+    <section id="home" class="active">
+    <p><center><h3>Welcome to the Book Management System!</h3></center></p>
+    <div>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQco9bYXQllLErw0NGi9jwzfUNy4q8kF27M6sudwwwotA&s" height="265px";width="150px";alt="Image 1">&nbsp&nbsp
+       <img src="https://5.imimg.com/data5/SELLER/Default/2023/10/351482497/SG/FQ/EG/150254197/79-500x500.png"   height="290px";width="150px" alt="Image 2">&nbsp&nbsp
+        <img src="https://images.routledge.com/common/jackets/crclarge/978103242/9781032425658.jpg" height="270px";width="150px"; alt="Image 1">
+          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKRAkzAIsRYLmniysKjpNjSZ6grfPW5Dql1HshGifivQ&s" height="270px";width="150px"; alt="Image 1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+          <img src="https://thectoclub.com/wp-content/uploads/sites/13/2023/09/Pro-Android-Apps-Performance-Optimization-Android-development-book.png" height="270px";width="140px"; alt="Image 1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+           <img src="https://www.netguru.com/hs-fs/hubfs/GUI%20Design%20for%20Android%20Apps.jpeg?width=250&name=GUI%20Design%20for%20Android%20Apps.jpeg" height="270px";width="150px"; alt="Image 1">
+
+        <!-- Add more images as needed -->
+    </div>
+</section>
+
+
+    <section id="catalog">
+        <h2>Books Catalog</h2>
+        <div class="book">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQco9bYXQllLErw0NGi9jwzfUNy4q8kF27M6sudwwwotA&s" alt="Book Image">
+            <div class="book-details">
+                <h3>Python </h3>
+                <p>Author: Author Name:Eric Matthes</p>
+                <p>Genre: 6th Edition</p>
+            </div>
+        </div>
+        <div class="book">
+            <img src="https://rukminim2.flixcart.com/image/850/1000/l51d30w0/book/z/x/0/java-programming-language-learn-java-from-basic-to-advance-2022-original-imagfsqsth4q7fhg.jpeg?q=90&crop=false" alt="Book Image">
+            <div class="book-details">
+                <h3>Core Java</h3>
+                <p>Author: Author Name:Dr. R. Nageswara Rao</p>
+                <p>Genre: 3rd Edition</p>
+            </div>
+        </div>
+        <div class="book">
+            <img src="https://m.media-amazon.com/images/I/41X2i47NXUL._SL500_.jpg" alt="Book Image">
+            <div class="book-details">
+                <h3>JavaScript</h3>
+                <p>Author: Author Name:Martin Fowler</p>
+                <p>Genre: Mystery</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="login">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <input type="submit" value="Login">
+        </form>
+    </section>
+
+    <section id="register">
+        <h2>Register</h2>
+        <form id="registerForm">
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required><br>
+            <input type="submit" value="Register">
+        </form>
+    </section>
+</div>
+
+<script>
+    // JavaScript code
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('nav a[href="#home"]').addEventListener('click', function() {
+            showSection('home');
+        });
+
+        document.querySelector('nav a[href="#catalog"]').addEventListener('click', function() {
+            showSection('catalog');
+        });
+
+        document.querySelector('nav a[href="#login"]').addEventListener('click', function() {
+            showSection('login');
+        });
+
+        document.querySelector('nav a[href="#register"]').addEventListener('click', function() {
+            showSection('register');
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Handle login form submission
+            alert('Login functionality is not implemented yet.');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Handle registration form submission
+            alert('Registration functionality is not implemented yet.');
+        });
+
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('section');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+    });
+</script>
+
+</body>
+</html>
